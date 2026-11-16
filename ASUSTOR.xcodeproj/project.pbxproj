@@ -1,0 +1,414 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+		98EDFA4517161AE41BBA4F9E = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.swift;
+			path = ASUSTORApp.swift;
+			sourceTree = "<group>";
+		};
+		A2D6D9F657CF916CCB52051E = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.swift;
+			path = Provider.swift;
+			sourceTree = "<group>";
+		};
+		B1D5EA2186F65580918B9FC5 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.swift;
+			path = Relay.swift;
+			sourceTree = "<group>";
+		};
+		28BDF3DC84C30936449A2068 = {
+			isa = PBXFileReference;
+			lastKnownFileType = folder.assetcatalog;
+			path = Assets.xcassets;
+			sourceTree = "<group>";
+		};
+		9AF94F6A7CD11850F3F58B3C = {
+			isa = PBXFileReference;
+			lastKnownFileType = text.plist.xml;
+			path = Info.plist;
+			sourceTree = "<group>";
+		};
+		3193D588EF0B81A2A88BF484 = {
+			isa = PBXFileReference;
+			lastKnownFileType = text.plist.xml;
+			path = Info.plist;
+			sourceTree = "<group>";
+		};
+		CC621D1F566109EE37535FF1 = {
+			isa = PBXFileReference;
+			lastKnownFileType = text.xml;
+			path = PrivacyInfo.xcprivacy;
+			sourceTree = "<group>";
+		};
+		C7FE1E64FDE47D28AAEBAB83 = {
+			isa = PBXFileReference;
+			explicitFileType = wrapper.application;
+			path = ASUSTOR.app;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9049A09C242B15EEAA7FDFA9 = {
+			isa = PBXFileReference;
+			explicitFileType = "wrapper.app-extension";
+			path = ASUSTORFileProvider.appex;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		6749AA54FE361CFC2E481F7D = {
+			isa = PBXGroup;
+			children = (
+				98EDFA4517161AE41BBA4F9E,
+				28BDF3DC84C30936449A2068,
+				9AF94F6A7CD11850F3F58B3C,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		5360344212CBDE6BC3AF46A7 = {
+			isa = PBXGroup;
+			children = (
+				A2D6D9F657CF916CCB52051E,
+				3193D588EF0B81A2A88BF484,
+				CC621D1F566109EE37535FF1,
+			);
+			path = Provider;
+			sourceTree = "<group>";
+		};
+		52034D2C4DCDC464D19F3E25 = {
+			isa = PBXGroup;
+			children = (
+				B1D5EA2186F65580918B9FC5,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		D6158A9BAACCE7639D950D53 = {
+			isa = PBXFileReference;
+			lastKnownFileType = text.xcconfig;
+			path = Signing.xcconfig;
+			sourceTree = "<group>";
+		};
+		3E0AD99DA2BFB502F496DD9D = {
+			isa = PBXFileReference;
+			lastKnownFileType = text.plist.entitlements;
+			path = Signing.entitlements;
+			sourceTree = "<group>";
+		};
+		B2B42A5C053F33BC1443DF28 = {
+			isa = PBXGroup;
+			children = (
+				C7FE1E64FDE47D28AAEBAB83,
+				9049A09C242B15EEAA7FDFA9,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		10CC9B0F3302C0B46863A91D = {
+			isa = PBXGroup;
+			children = (
+				6749AA54FE361CFC2E481F7D,
+				5360344212CBDE6BC3AF46A7,
+				52034D2C4DCDC464D19F3E25,
+				D6158A9BAACCE7639D950D53,
+				3E0AD99DA2BFB502F496DD9D,
+				B2B42A5C053F33BC1443DF28,
+			);
+			sourceTree = "<group>";
+		};
+		0AC8C0195B0DED80F1D3CA8E = {
+			isa = PBXBuildFile;
+			fileRef = 9049A09C242B15EEAA7FDFA9;
+			settings = {
+				ATTRIBUTES = (
+					RemoveHeadersOnCopy,
+					CodeSignOnCopy,
+				);
+			};
+		};
+		B042362C7E3014CE490AEA26 = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0AC8C0195B0DED80F1D3CA8E,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			name = "Embed App Extensions";
+		};
+		259261AA6B1865A99638A3D7 = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BAB3364497AAD0A0EDB599B5;
+			proxyType = 1;
+			remoteGlobalIDString = 63C75A84E6EB3E21D870FBA9;
+			remoteInfo = ASUSTORFileProvider;
+		};
+		0B455617CCBA7898EFBA69CF = {
+			isa = PBXTargetDependency;
+			target = 63C75A84E6EB3E21D870FBA9;
+			targetProxy = 259261AA6B1865A99638A3D7;
+		};
+		E654D04C832AE790A5665B50 = {
+			isa = XCBuildConfiguration;
+			name = Debug;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Signing.entitlements;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				GENERATE_INFOPLIST_FILE = NO;
+				MARKETING_VERSION = 1.0;
+				CURRENT_PROJECT_VERSION = 1;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(ASUSTOR_BUNDLE_ID)";
+				INFOPLIST_FILE = App/Info.plist;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				SUPPORTS_MACCATALYST = NO;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+			};
+		};
+		08E704C88EBEAD8B30AA62ED = {
+			isa = XCBuildConfiguration;
+			name = Release;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Signing.entitlements;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				GENERATE_INFOPLIST_FILE = NO;
+				MARKETING_VERSION = 1.0;
+				CURRENT_PROJECT_VERSION = 1;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(ASUSTOR_BUNDLE_ID)";
+				INFOPLIST_FILE = App/Info.plist;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				SUPPORTS_MACCATALYST = NO;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+			};
+		};
+		2B7A5248B5634BF462B38DAC = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E654D04C832AE790A5665B50,
+				08E704C88EBEAD8B30AA62ED,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FE45850E30E0D021A39DFDBB = {
+			isa = PBXBuildFile;
+			fileRef = 98EDFA4517161AE41BBA4F9E;
+		};
+		0B17657AA13FDBA0FD594DA7 = {
+			isa = PBXBuildFile;
+			fileRef = B1D5EA2186F65580918B9FC5;
+		};
+		6A2FE0DEF61DCAE21081502C = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FE45850E30E0D021A39DFDBB,
+				0B17657AA13FDBA0FD594DA7,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		328788D20164F295B0C13165 = {
+			isa = PBXBuildFile;
+			fileRef = 28BDF3DC84C30936449A2068;
+		};
+		23E5CF1BE4991991140B1BE1 = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				328788D20164F295B0C13165,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C1BCA0FFE0ED17CE21AB282A = {
+			isa = PBXNativeTarget;
+			name = ASUSTOR;
+			productName = ASUSTOR;
+			productReference = C7FE1E64FDE47D28AAEBAB83;
+			productType = "com.apple.product-type.application";
+			dependencies = (
+				0B455617CCBA7898EFBA69CF,
+			);
+			buildRules = ();
+			buildConfigurationList = 2B7A5248B5634BF462B38DAC;
+			buildPhases = (
+				6A2FE0DEF61DCAE21081502C,
+				23E5CF1BE4991991140B1BE1,
+				B042362C7E3014CE490AEA26,
+			);
+		};
+		56F0793F8D106241F14CEEE8 = {
+			isa = XCBuildConfiguration;
+			name = Debug;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Signing.entitlements;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				GENERATE_INFOPLIST_FILE = NO;
+				MARKETING_VERSION = 1.0;
+				CURRENT_PROJECT_VERSION = 1;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(ASUSTOR_BUNDLE_ID).fileprovider";
+				INFOPLIST_FILE = Provider/Info.plist;
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				SKIP_INSTALL = YES;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+			};
+		};
+		58CEDA2E004DC8864D99842D = {
+			isa = XCBuildConfiguration;
+			name = Release;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Signing.entitlements;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				GENERATE_INFOPLIST_FILE = NO;
+				MARKETING_VERSION = 1.0;
+				CURRENT_PROJECT_VERSION = 1;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(ASUSTOR_BUNDLE_ID).fileprovider";
+				INFOPLIST_FILE = Provider/Info.plist;
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				SKIP_INSTALL = YES;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+			};
+		};
+		C0D058DF52FFBFA4066E2453 = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				56F0793F8D106241F14CEEE8,
+				58CEDA2E004DC8864D99842D,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		05869360C649B65391CAF332 = {
+			isa = PBXBuildFile;
+			fileRef = A2D6D9F657CF916CCB52051E;
+		};
+		8BA2D23CE5327F3CB4499123 = {
+			isa = PBXBuildFile;
+			fileRef = B1D5EA2186F65580918B9FC5;
+		};
+		E798C5075AD28098058FAC04 = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				05869360C649B65391CAF332,
+				8BA2D23CE5327F3CB4499123,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D450114BCF75D4FDC956D0F8 = {
+			isa = PBXBuildFile;
+			fileRef = CC621D1F566109EE37535FF1;
+		};
+		84C29039ACD6E6AD983B2DF3 = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D450114BCF75D4FDC956D0F8,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		63C75A84E6EB3E21D870FBA9 = {
+			isa = PBXNativeTarget;
+			name = ASUSTORFileProvider;
+			productName = ASUSTORFileProvider;
+			productReference = 9049A09C242B15EEAA7FDFA9;
+			productType = "com.apple.product-type.app-extension";
+			dependencies = ();
+			buildRules = ();
+			buildConfigurationList = C0D058DF52FFBFA4066E2453;
+			buildPhases = (
+				E798C5075AD28098058FAC04,
+				84C29039ACD6E6AD983B2DF3,
+			);
+		};
+		33B4893482ACFE5DB48AF2F7 = {
+			isa = XCBuildConfiguration;
+			name = Debug;
+			buildSettings = {
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				TARGETED_DEVICE_FAMILY = 1;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+			};
+			baseConfigurationReference = D6158A9BAACCE7639D950D53;
+		};
+		E219A0E7DDF705CB315ED2AA = {
+			isa = XCBuildConfiguration;
+			name = Release;
+			buildSettings = {
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				TARGETED_DEVICE_FAMILY = 1;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			baseConfigurationReference = D6158A9BAACCE7639D950D53;
+		};
+		E78497E9F8116D36FE7C4685 = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				33B4893482ACFE5DB48AF2F7,
+				E219A0E7DDF705CB315ED2AA,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BAB3364497AAD0A0EDB599B5 = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1610;
+				LastUpgradeCheck = 1610;
+				TargetAttributes = {
+					C1BCA0FFE0ED17CE21AB282A = {
+						CreatedOnToolsVersion = 16.1;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
+					};
+					63C75A84E6EB3E21D870FBA9 = {
+						CreatedOnToolsVersion = 16.1;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
+					};
+				};
+			};
+			buildConfigurationList = E78497E9F8116D36FE7C4685;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = fr;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				fr,
+				en,
+				Base,
+			);
+			mainGroup = 10CC9B0F3302C0B46863A91D;
+			productRefGroup = B2B42A5C053F33BC1443DF28;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C1BCA0FFE0ED17CE21AB282A,
+				63C75A84E6EB3E21D870FBA9,
+			);
+		};
+	};
+	rootObject = BAB3364497AAD0A0EDB599B5;
+}
