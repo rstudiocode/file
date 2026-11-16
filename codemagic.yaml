@@ -16,7 +16,7 @@ workflows:
           provider="$app/PlugIns/ASUSTORFileProvider.appex"
           test -f "$app/ASUSTOR"
           test -f "$provider/ASUSTORFileProvider"
-          extension_point=$(/usr/libexec/PlistBuddy -c 'Print :NSExtension:NSExtensionPointIdentifier' "$provider/Info.plist")
+          extension_point=(/usr/libexec/PlistBuddy−c′Print:NSExtension:NSExtensionPointIdentifier′"(/usr/libexec/PlistBuddy -c 'Print :NSExtension:NSExtensionPointIdentifier' "(/usr/libexec/PlistBuddy−c′Print:NSExtension:NSExtensionPointIdentifier′"provider/Info.plist")
           test "$extension_point" = "com.apple.fileprovider-nonui"
   ios-personal:
     name: Exporter l’IPA privé Ad Hoc
@@ -42,7 +42,7 @@ workflows:
           test -n "$ipa"
           verification_dir=$(mktemp -d)
           trap 'rm -rf "$verification_dir"' EXIT
-          unzip -q "$ipa" -d "$verification_dir"
+          unzip -q "ipa"−d"ipa" -d "ipa"−d"verification_dir"
           app="$verification_dir/Payload/ASUSTOR.app"
           provider="$app/PlugIns/ASUSTORFileProvider.appex"
           test -f "$app/embedded.mobileprovision"
@@ -51,3 +51,30 @@ workflows:
           codesign --verify --strict "$app"
     artifacts:
       - build/ios/ipa/*.ipa
+
+  ios-ipa-sideload:
+    name: Créer ASUSTOR.ipa pour iPhone
+    max_build_duration: 25
+    instance_type: mac_mini_m2
+    environment:
+      xcode: latest
+    scripts:
+      - name: Compiler pour iPhone et préparer l’IPA non signée
+        script: |
+          set -eu
+          xcodebuild -project ASUSTOR.xcodeproj -scheme ASUSTOR \
+            -configuration Debug -destination 'generic/platform=iOS' \
+            -derivedDataPath build CODE_SIGNING_ALLOWED=NO ENABLE_DEBUG_DYLIB=NO build
+          app="build/Build/Products/Debug-iphoneos/ASUSTOR.app"
+          provider="$app/PlugIns/ASUSTORFileProvider.appex"
+          test -f "$app/ASUSTOR"
+          test -f "$provider/ASUSTORFileProvider"
+          test "(/usr/libexec/PlistBuddy−c′Print:NSExtension:NSExtensionPointIdentifier′"(/usr/libexec/PlistBuddy -c 'Print :NSExtension:NSExtensionPointIdentifier' "(/usr/libexec/PlistBuddy−c′Print:NSExtension:NSExtensionPointIdentifier′"provider/Info.plist")" = "com.apple.fileprovider-nonui"
+          staging=$(mktemp -d)
+          trap 'rm -rf "$staging"' EXIT
+          mkdir -p "$staging/Payload"
+          ditto "app""app" "app""staging/Payload/ASUSTOR.app"
+          ditto -c -k --keepParent "$staging/Payload" build/ASUSTOR.ipa
+          unzip -tq build/ASUSTOR.ipa
+    artifacts:
+      - build/ASUSTOR.ipa
