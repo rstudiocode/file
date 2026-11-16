@@ -1,0 +1,53 @@
+workflows:
+  ios-verification:
+    name: Vérifier la compilation iOS
+    max_build_duration: 25
+    instance_type: mac_mini_m2
+    environment:
+      xcode: latest
+    scripts:
+      - name: Compiler l’app et l’extension pour le simulateur
+        script: |
+          set -eu
+          xcodebuild -project ASUSTOR.xcodeproj -scheme ASUSTOR \
+            -configuration Debug -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath build CODE_SIGNING_ALLOWED=NO build
+          app="build/Build/Products/Debug-iphonesimulator/ASUSTOR.app"
+          provider="$app/PlugIns/ASUSTORFileProvider.appex"
+          test -f "$app/ASUSTOR"
+          test -f "$provider/ASUSTORFileProvider"
+          extension_point=$(/usr/libexec/PlistBuddy -c 'Print :NSExtension:NSExtensionPointIdentifier' "$provider/Info.plist")
+          test "$extension_point" = "com.apple.fileprovider-nonui"
+  ios-personal:
+    name: Exporter l’IPA privé Ad Hoc
+    max_build_duration: 30
+    instance_type: mac_mini_m2
+    environment:
+      xcode: latest
+      ios_signing:
+        distribution_type: ad_hoc
+        # Remplacer cette valeur avec l’identifiant de Signing.xcconfig.
+        bundle_identifier: com.example.asustor-explorateur
+    scripts:
+      - name: Appliquer les profils à l’app et à son extension
+        script: xcode-project use-profiles
+      - name: Archiver et exporter une IPA privée
+        script: |
+          set -eu
+          xcode-project build-ipa --project ASUSTOR.xcodeproj --scheme ASUSTOR
+      - name: Vérifier les deux profils et l’intégration de l’extension
+        script: |
+          set -eu
+          ipa=$(find build/ios/ipa -name '*.ipa' -print -quit)
+          test -n "$ipa"
+          verification_dir=$(mktemp -d)
+          trap 'rm -rf "$verification_dir"' EXIT
+          unzip -q "$ipa" -d "$verification_dir"
+          app="$verification_dir/Payload/ASUSTOR.app"
+          provider="$app/PlugIns/ASUSTORFileProvider.appex"
+          test -f "$app/embedded.mobileprovision"
+          test -f "$provider/embedded.mobileprovision"
+          codesign --verify --strict "$provider"
+          codesign --verify --strict "$app"
+    artifacts:
+      - build/ios/ipa/*.ipa

@@ -1,0 +1,4 @@
+// Set a unique reverse-DNS identifier and your Apple development team before building on a device.
+ASUSTOR_BUNDLE_ID = com.example.asustor-explorateur
+DEVELOPMENT_TEAM =
+CODE_SIGN_STYLE = Automatic
