@@ -64,7 +64,6 @@ private final class ProviderItem: NSObject, NSFileProviderItem {
     var capabilities: NSFileProviderItemCapabilities {
         record.dir ? [.allowsContentEnumerating, .allowsReading] : [.allowsReading, .allowsEvicting]
     }
-    var contentPolicy: NSFileProviderContentPolicy { .downloadLazily }
     var documentSize: NSNumber? { record.dir ? nil : record.size.map { NSNumber(value: $0) } }
     var contentModificationDate: Date? { record.modified }
     var itemVersion: NSFileProviderItemVersion {
@@ -232,17 +231,21 @@ final class Provider: NSObject, NSFileProviderReplicatedExtension {
             do {
                 let item = try await self.metadata(itemIdentifier)
                 guard !item.record.dir else { throw NSFileProviderError(.noSuchItem) }
-                if let requestedVersion, requestedVersion.contentVersion != item.itemVersion.contentVersion {
-                    throw NSFileProviderError(.versionNoLongerAvailable)
-                }
                 guard let manager = NSFileProviderManager(for: self.domain) else {
                     throw NSFileProviderError(.providerNotFound)
+                }
+                if let requestedVersion, requestedVersion.contentVersion != item.itemVersion.contentVersion {
+                    // ADM only serves its current version. Refresh the folder without supplying different bytes.
+                    Task { try? await manager.signalEnumerator(for: item.parentItemIdentifier) }
+                    throw NSError(domain: NSCocoaErrorDomain, code: NSFileReadUnknownError, userInfo: [
+                        NSLocalizedDescriptionKey: "Le fichier a changé sur le NAS. Réessayez après l’actualisation du dossier."
+                    ])
                 }
                 let directory = try manager.temporaryDirectoryURL()
                 let url = try await Relay.shared.download(item.record, profile: self.profile, to: directory)
                 await OpenedFiles.shared.record(item.entry, profile: self.profile)
                 completionHandler(url, item, nil)
-                manager.signalEnumerator(for: .workingSet) { _ in }
+                Task { try? await manager.signalEnumerator(for: .workingSet) }
                 Task { await Relay.shared.recordOpening(item.record.path, profile: self.profile) }
             } catch {
                 completionHandler(nil, nil, providerError(error))
