@@ -59,22 +59,22 @@ workflows:
     environment:
       xcode: latest
     scripts:
-      - name: Compiler pour iPhone et préparer l’IPA non signée
+      - name: Compiler l’app et l’extension pour iPhone
         script: |
           set -eu
           xcodebuild -project ASUSTOR.xcodeproj -scheme ASUSTOR \
             -configuration Debug -destination 'generic/platform=iOS' \
             -derivedDataPath build CODE_SIGNING_ALLOWED=NO ENABLE_DEBUG_DYLIB=NO build
-          app="build/Build/Products/Debug-iphoneos/ASUSTOR.app"
-          provider="$app/PlugIns/ASUSTORFileProvider.appex"
-          test -f "$app/ASUSTOR"
-          test -f "$provider/ASUSTORFileProvider"
-          test "(/usr/libexec/PlistBuddy−c′Print:NSExtension:NSExtensionPointIdentifier′"(/usr/libexec/PlistBuddy -c 'Print :NSExtension:NSExtensionPointIdentifier' "(/usr/libexec/PlistBuddy−c′Print:NSExtension:NSExtensionPointIdentifier′"provider/Info.plist")" = "com.apple.fileprovider-nonui"
-          staging=$(mktemp -d)
-          trap 'rm -rf "$staging"' EXIT
-          mkdir -p "$staging/Payload"
-          ditto "app""app" "app""staging/Payload/ASUSTOR.app"
-          ditto -c -k --keepParent "$staging/Payload" build/ASUSTOR.ipa
-          unzip -tq build/ASUSTOR.ipa
+      - name: Créer et vérifier ASUSTOR.ipa
+        script: |
+          set -eu
+          test -f build/Build/Products/Debug-iphoneos/ASUSTOR.app/ASUSTOR
+          test -f build/Build/Products/Debug-iphoneos/ASUSTOR.app/PlugIns/ASUSTORFileProvider.appex/ASUSTORFileProvider
+          mkdir -p build/sideload/Payload
+          cp -R build/Build/Products/Debug-iphoneos/ASUSTOR.app build/sideload/Payload/
+          cd build/sideload
+          rm -f ../ASUSTOR.ipa
+          /usr/bin/zip -qry ../ASUSTOR.ipa Payload
+          /usr/bin/unzip -tq ../ASUSTOR.ipa
     artifacts:
       - build/ASUSTOR.ipa
